@@ -83,6 +83,7 @@ public class Box : MonoBehaviour
     public void SetType(ColorType value)
     {
         type = value;
+        Debug.Log(type.ToString());
     }
     public void TargetActivation()
     {
@@ -175,7 +176,7 @@ public class Box : MonoBehaviour
             if (activation)
             {
                 isHit = true;
-                TargetDeActivation();
+                //TargetDeActivation();
                 Debug.Log("TriggerEnter Ãæµ¹");
             }
         }

@@ -28,7 +28,7 @@ public class RightHandController : MonoBehaviour
             Debug.Log("오른손 던지기");
             if (HasBall != null) FireProjectile();
         }
-        print(GameManager.instance.ballCount);
+        //print(GameManager.instance.ballCount);
     }
 
     void Catchball()
