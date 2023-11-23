@@ -50,13 +50,7 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        if (ballCount <= 4)
-        {
-            float x = Random.Range(-1.6f, 1.6f);
-            float z = Random.Range(-6.9f, -9f);
-            Instantiate(ballPrefab, new Vector3(x, -1, z), Quaternion.identity);
-            ballCount++;
-        }
+      
 
 
         //// ÇÑ RoundÀÇ ½ÃÀÛ ¹× ³¡À» Á¤ÇØ¾ß ÇÔ
@@ -69,7 +63,7 @@ public class GameManager : MonoBehaviour
                 Input.mousePosition.y, -Camera.main.transform.position.z));
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log(point.ToString());
+            //Debug.Log(point.ToString());
             //Instantiate(cube,new Vector3(point.x,point.y,point.z-4),Quaternion.identity);
         }
 
@@ -92,7 +86,7 @@ public class GameManager : MonoBehaviour
         {
             if (target[i].GetIsHit())
             {
-                Debug.Log(target[i].GetIsScored());
+                //Debug.Log(target[i].GetIsScored());
                 score += target[i].GetScore();
                 target[i].SetIsHit(false);
             }
@@ -135,7 +129,7 @@ public class GameManager : MonoBehaviour
         {
             SetAGame();
             roundTime = 0;
-            Debug.Log("Round ³¡, °ÔÀÓ ¼¼ÆÃµÊ");
+            //Debug.Log("Round ³¡, °ÔÀÓ ¼¼ÆÃµÊ");
         }
     }
     void GameSetter()
@@ -148,7 +142,7 @@ public class GameManager : MonoBehaviour
         if(gameTime > gameTimer)
         {
             isGameOver = true;
-            Debug.Log("Game ³¡.");
+            //Debug.Log("Game ³¡.");
         }
     }
 
@@ -200,14 +194,14 @@ public class GameManager : MonoBehaviour
     }
     void DecideTargetboxNum()
     {
-        Debug.Log("»Ì±â È½¼ö = " + drawCount);
+        //Debug.Log("»Ì±â È½¼ö = " + drawCount);
         
         for (int i = 0; i < drawCount; i++)
         {
             int randomIndex = Random.Range(0, number.Count);
             boxNum.Add(number[randomIndex]);
             number.RemoveAt(randomIndex);
-            Debug.Log("»ÌÈù ¼ýÀÚ = " + boxNum[i]);
+            //Debug.Log("»ÌÈù ¼ýÀÚ = " + boxNum[i]);
         }
     }
     void TargetsActivation()
