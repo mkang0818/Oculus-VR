@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-//using Unity.VisualScripting;
 using UnityEngine;
 
 public enum Type
@@ -82,8 +81,8 @@ public class Target : MonoBehaviour
         {
             SetActivation(true);
             SetIsAttacked(false);
+            SetType(Type.Target);
             atkTime = 0;
-            //Debug.Log(stat.GetActivation());
         }
     }
     public void TargetDeActivation()
