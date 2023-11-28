@@ -21,6 +21,7 @@ public class GameStarter : MonoBehaviour
     {
         gm.isPlay = true;
         gm.SetAGame();
+        print("버튼충돌");
         Destroy(collision.gameObject);
         Destroy(this.gameObject);
     }

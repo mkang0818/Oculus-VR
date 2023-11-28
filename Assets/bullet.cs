@@ -15,4 +15,5 @@ public class bullet : MonoBehaviour
     {
         Vector3 playerForward = transform.forward;
     }
+
 }

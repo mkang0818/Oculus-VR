@@ -22,6 +22,9 @@ public class GameManager_Target : MonoBehaviour
     // 뽑은 숫자 저장
     List<int> boxNum = new List<int>();
     public Text scoreText;
+    public GameObject gameFinish;
+
+    Text finishscore;
     ///////////////////////
     //public GameObject ballPrefab;
     [HideInInspector]
@@ -50,7 +53,14 @@ public class GameManager_Target : MonoBehaviour
     {
         scoreText.text = "Score : " + score.ToString();
 
+        finishscore = gameFinish.transform.GetChild(1).GetComponent<Text>();
 
+        finishscore.text = "Score : " + score.ToString();
+
+        if (isGameOver)
+        {
+            gameFinish.gameObject.SetActive(true);
+        }
         //// 한 Round의 시작 및 끝을 정해야 함
         if (Input.GetKeyDown(KeyCode.X))
         {
