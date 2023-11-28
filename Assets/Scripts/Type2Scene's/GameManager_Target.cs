@@ -22,12 +22,12 @@ public class GameManager_Target : MonoBehaviour
     // 뽑은 숫자 저장
     List<int> boxNum = new List<int>();
     public Text scoreText;
-    public Button gameStart;
     ///////////////////////
     //public GameObject ballPrefab;
     [HideInInspector]
     public int ballCount = 5;
 
+    public bool isPlay = false;
     private void Awake()
     {
         if (null == instance)
@@ -48,7 +48,7 @@ public class GameManager_Target : MonoBehaviour
     }
     private void Update()
     {
-
+        scoreText.text = "Score : " + score.ToString();
 
 
         //// 한 Round의 시작 및 끝을 정해야 함
@@ -77,8 +77,11 @@ public class GameManager_Target : MonoBehaviour
         //    }
         //}
 
-        RoundSetter();
-        GameSetter();
+        if (isPlay)
+        {
+            RoundSetter();
+            GameSetter();
+        }
 
         foreach (int i in boxNum)
         {
@@ -153,7 +156,7 @@ public class GameManager_Target : MonoBehaviour
 
 
     // 무작위 Node를 활성화하는 함수
-    void SetAGame()
+    public void SetAGame()
     {
         TargetInitialization();
         SetNumber();
@@ -193,9 +196,4 @@ public class GameManager_Target : MonoBehaviour
         //target[boxNum[boxNum.Count - 1].TargetActivation();
     }
 
-    public void Oncclick()
-    {
-        SetAGame();
-        gameStart.gameObject.SetActive(false);
-    }
 }

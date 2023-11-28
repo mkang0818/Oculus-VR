@@ -5,8 +5,9 @@ using OVR;
 
 public class LeftHandController : MonoBehaviour
 {
-
     GameObject HasBall;
+    public GameObject bulletPrefab;
+    public Transform BulletPos;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,18 +18,38 @@ public class LeftHandController : MonoBehaviour
     void Update()
     {
         // Oculus 트리거 버튼 입력 확인
-        if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger))
+        /*if (OVRInput.Get(OVRInput.Button.SecondaryIndexTrigger))
         {
             // 트리거 버튼이 눌렸을 때 수행할 동작
-            Debug.Log("왼손 공 잡기");
+            Debug.Log("오른손 공 잡기");
             if (HasBall != null) Catchball();
-        }
-        if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger))
+        }*/
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger))
         {
             // 트리거 버튼이 눌렸을 때 수행할 동작
-            Debug.Log("왼손 던지기");
-            if (HasBall != null) FireProjectile();
+            Debug.Log("총알발사");
+            //if (HasBall != null) FireProjectile();
+            //FireProjectile();
+            Fire();
         }
+        //print(GameManager.instance.ballCount);
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("총알발사");
+            //if (HasBall != null) FireProjectile();
+            Fire();
+        }
+    }
+    void Fire()
+    {
+        // 총알 프리팹 생성
+        GameObject bullet = Instantiate(bulletPrefab, BulletPos.position, Quaternion.identity);
+
+        // 총알 발사
+        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 100;
+
+        // 2초 뒤에 파괴
+        Destroy(bullet, 2.0f);
     }
 
     void Catchball()
@@ -38,12 +59,12 @@ public class LeftHandController : MonoBehaviour
 
     void FireProjectile()
     {
+        Instantiate(bulletPrefab, BulletPos.position, Quaternion.identity);
+
+        /*Rigidbody ballRigidbody = bulletPrefab.GetComponent<Rigidbody>();
         Vector3 playerForward = transform.forward;
-
-        Rigidbody ballRigidbody = HasBall.GetComponent<Rigidbody>();
-        ballRigidbody.velocity = playerForward.normalized * 10;
-
-        HasBall = null;
+        ballRigidbody.velocity = playerForward.normalized * 10000;*/
+        //HasBall = null;
         GameManager.instance.ballCount--;
     }
     private void OnTriggerStay(Collider col)

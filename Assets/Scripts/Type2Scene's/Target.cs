@@ -125,7 +125,7 @@ public class Target : MonoBehaviour
             {
                 isHit = true;
                 TargetDeActivation();
-                Debug.Log("충돌함함함함함함하맣하");
+                Debug.Log("충돌");
             }
         }
     }
