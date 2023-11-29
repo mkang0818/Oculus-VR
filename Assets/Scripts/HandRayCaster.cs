@@ -11,8 +11,8 @@ public class HandRayCaster : MonoBehaviour
     void Start()
     {
         lineRenderer = gameObject.AddComponent<LineRenderer>();
-        lineRenderer.startWidth = 0.02f;
-        lineRenderer.endWidth = 0.02f;
+        lineRenderer.startWidth = 0.01f;
+        lineRenderer.endWidth = 0.01f;
         lineRenderer.material.color = Color.red;
     }
 

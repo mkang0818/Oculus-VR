@@ -21,10 +21,14 @@ public class Target : MonoBehaviour
     bool isAttacked = false;
     bool isScored = false;
     bool activation;
+
+
+    private AudioSource HitSound;
     // Start is called before the first frame update
     void Start()
     {
         ani= GetComponent<Animator>();
+        HitSound = GetComponent<AudioSource>();
     }
     private void Update()
     {
@@ -126,6 +130,7 @@ public class Target : MonoBehaviour
                 isHit = true;
                 TargetDeActivation();
                 Debug.Log("Ãæµ¹");
+                //HitSound.Play();
             }
         }
     }
