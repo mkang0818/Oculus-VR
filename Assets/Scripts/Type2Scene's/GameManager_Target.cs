@@ -9,8 +9,12 @@ public class GameManager_Target : MonoBehaviour
     public List<GameObject> matrix = new List<GameObject>();
     public float gameTimer;
     public float roundTimer;
+    public float startTimer;
 
+    bool isGameStart = false;
     bool isGameOver = false;
+    public float StartTime { get { return startTime; } }
+    float startTime = 0;
     float gameTime = 0;
     float roundTime = 0;
     [SerializeField] int score = 0;
@@ -33,6 +37,7 @@ public class GameManager_Target : MonoBehaviour
     public bool isPlay = false;
     private void Awake()
     {
+        isGameStart = true;
         if (null == instance)
         {
             instance = this;
@@ -86,11 +91,19 @@ public class GameManager_Target : MonoBehaviour
         //        target[i].SetIsScored(true);
         //    }
         //}
-
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            GameReSetter();
+        }
+        
         if (isPlay)
         {
-            RoundSetter();
-            GameSetter();
+            GameStarter();
+            if (isGameStart)
+            {
+                RoundSetter();
+                GameSetter();
+            }
         }
 
         foreach (int i in boxNum)
@@ -106,7 +119,36 @@ public class GameManager_Target : MonoBehaviour
         //scoreText.text = "Score : " + score;
     }
 
+    //void SceneReStarter()
+    //{
 
+    //}
+    void GameStarter()
+    {
+        if(isPlay)
+        {
+            startTime += Time.deltaTime;
+            if (startTime >= startTimer)
+            {
+                isGameStart = true;
+            }
+        }
+        
+    }
+    void GameReSetter()
+    {
+        isPlay = false;
+        isGameStart = false;
+        isGameOver = false;
+        startTime = 0;
+        roundTime = 0;
+        gameTime = 0;
+
+        foreach (int i in boxNum)
+        {
+            target[i].TargetDeActivation();
+        }
+    }
     void RoundSetter()
     {
         if (!isGameOver)
