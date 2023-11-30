@@ -24,7 +24,7 @@ public class LeftHandController : MonoBehaviour
         Curcooltime-= Time.deltaTime;
         if (Curcooltime <= 0)
         {
-            if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger))
+            if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
             {
                 Curcooltime = cooltime;
                 handray.lineRenderer.enabled = false;

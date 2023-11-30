@@ -15,5 +15,11 @@ public class bullet : MonoBehaviour
     {
         Vector3 playerForward = transform.forward;
     }
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.CompareTag("Round"))
+        {
+            Destroy(gameObject);
+        }   
+    }
 }

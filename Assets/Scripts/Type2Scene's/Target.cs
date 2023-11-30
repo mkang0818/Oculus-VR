@@ -123,15 +123,26 @@ public class Target : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(type==Type.Target)
+        if (collision.transform.CompareTag("Bullet"))
         {
             if (GetActivation())
             {
                 isHit = true;
                 TargetDeActivation();
                 Debug.Log("충돌");
-                //HitSound.Play();
+                HitSound.Play();
             }
         }
+        
+        //if(type==Type.Target)
+        //{
+        //    if (GetActivation())
+        //    {
+        //        isHit = true;
+        //        TargetDeActivation();
+        //        Debug.Log("충돌");
+        //        //HitSound.Play();
+        //    }
+        //}
     }
 }
