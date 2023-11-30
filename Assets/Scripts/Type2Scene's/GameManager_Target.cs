@@ -51,7 +51,6 @@ public class GameManager_Target : MonoBehaviour
         for (int i = 0; i < matrix.Count; i++)
         {
             target.Add(matrix[i].GetComponent<Target>());
-            //target.Add(matrix[i].GetComponent<Box>());
         }
     }
     private void Update()
@@ -90,22 +89,27 @@ public class GameManager_Target : MonoBehaviour
         //        score += target[i].GetScore();
         //        target[i].SetIsScored(true);
         //    }
-        //}
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            GameReSetter();
-        }
-        
-        if (isPlay)
-        {
-            GameStarter();
-            if (isGameStart)
-            {
-                RoundSetter();
-                GameSetter();
-            }
-        }
+        //}        
+        GameStarter();
+        GameChecker();
+        TargetHitChecker();
+        GameReSetter();
+        //scoreText.text = "Score : " + score;
+    }
 
+
+    // 게임의 라운드와 끝을 확인하는 함수
+    void GameChecker()
+    {
+        if (isGameStart)
+        {
+            RoundStarter();
+            GameFinisher();
+        }
+    }
+    // Target이 맞았는지 확인 후 점수 반환 및, 맞은 횟수 초기화
+    void TargetHitChecker()
+    {
         foreach (int i in boxNum)
         {
             if (target[i].GetIsHit())
@@ -115,41 +119,38 @@ public class GameManager_Target : MonoBehaviour
                 target[i].SetIsHit(false);
             }
         }
-
-        //scoreText.text = "Score : " + score;
     }
-
-    //void SceneReStarter()
-    //{
-
-    //}
+    // 게임 시작전의 숫자를 세는 함수
     void GameStarter()
     {
-        if(isPlay)
+        if(!isGameStart)
         {
             startTime += Time.deltaTime;
             if (startTime >= startTimer)
             {
                 isGameStart = true;
+                SetAGame() ;
             }
         }
         
     }
+    // 결과를 초기화하며 재시작함
     void GameReSetter()
     {
-        isPlay = false;
-        isGameStart = false;
-        isGameOver = false;
-        startTime = 0;
-        roundTime = 0;
-        gameTime = 0;
-
-        foreach (int i in boxNum)
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            target[i].TargetDeActivation();
+            isPlay = false;
+            isGameStart = false;
+            isGameOver = false;
+            startTime = 0;
+            roundTime = 0;
+            gameTime = 0;
+
+            TargetInitialization();
         }
     }
-    void RoundSetter()
+    // 한 라운드를 시작함
+    void RoundStarter()
     {
         if (!isGameOver)
         {
@@ -163,7 +164,8 @@ public class GameManager_Target : MonoBehaviour
             Debug.Log("Round 끝, 게임 세팅됨");
         }
     }
-    void GameSetter()
+    // gameTime이 끝났을 때 게임을 끝냄
+    void GameFinisher()
     {
         if (!isGameOver)
         {
@@ -176,7 +178,7 @@ public class GameManager_Target : MonoBehaviour
             Debug.Log("Game 끝.");
         }
     }
-
+    // 뽑힌 Target의 번호를 초기화함
     void SetNumber()
     {
         number.Clear();
@@ -185,7 +187,7 @@ public class GameManager_Target : MonoBehaviour
             number.Add(i);
         }
     }
-
+    // Target을 모두 비활성화 상태로 초기화함
     void TargetInitialization()
     {
         if (boxNum.Count == 0)
@@ -202,12 +204,7 @@ public class GameManager_Target : MonoBehaviour
             }
         }
     }
-
-
-
-
-
-    // 무작위 Node를 활성화하는 함수
+    // 한 게임을 시작함
     public void SetAGame()
     {
         TargetInitialization();
@@ -217,12 +214,14 @@ public class GameManager_Target : MonoBehaviour
         TargetsActivation();
 
     }
+    // 활성화 할 Target의 갯수를 정함
     int SetDrawCount()
     {
         boxNum.Clear();
         drawCount = Random.Range(1, matrix.Count);
         return drawCount;
     }
+    // 활성화 할 Target의 번호를 정함
     void DecideTargetboxNum()
     {
         //Debug.Log("뽑기 횟수 = " + drawCount);
@@ -235,6 +234,7 @@ public class GameManager_Target : MonoBehaviour
             //Debug.Log("뽑힌 숫자 = " + boxNum[i]);
         }
     }
+    // 추첨된 Target을 활성화 함
     void TargetsActivation()
     {
         for (int i = 0; i < boxNum.Count; i++)
@@ -247,5 +247,4 @@ public class GameManager_Target : MonoBehaviour
         //target[boxNum[boxNum.Count-1].SetType(Type.Attack);
         //target[boxNum[boxNum.Count - 1].TargetActivation();
     }
-
 }

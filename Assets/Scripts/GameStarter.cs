@@ -14,13 +14,12 @@ public class GameStarter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         gm.isPlay = true;
-        gm.SetAGame();
+        //gm.SetAGame();
         print("버튼충돌");
         Destroy(collision.gameObject);
         Destroy(this.gameObject);
